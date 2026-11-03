@@ -1,0 +1,9 @@
+PORTFOLIO CAFE V98 — GITHUB PAGES
+
+Upload the CONTENTS of this ZIP to the ROOT of your existing amber-tang-cafe repository.
+index.html must be at the repository root beside assets/ and portfolio/.
+If replacing an existing version, overwrite old files while retaining any existing CNAME file.
+Easy upload: unzip; use GitHub Desktop to copy these files into your cloned repository; commit and Push origin.
+GitHub Pages: Settings > Pages > Deploy from a branch > main > /(root).
+The chatbot public endpoint is defined in assets/cafe-config.js; NO API key is included.
+Do not publish server files or OpenAI keys in this public repository.
