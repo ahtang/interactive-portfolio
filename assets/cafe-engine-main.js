@@ -212,7 +212,7 @@ function cafeAnyModalOpen(){
 
 /* V84 mobile controls: additive adapter; desktop keyboard and world coordinates remain unchanged. */
 const cafeMobileState={stickX:0,stickY:0,route:[],wasMobile:false};
-const cafeMobileMode=()=>matchMedia('(pointer:coarse)').matches||new URLSearchParams(location.search).has('mobilePreview');
+const cafeMobileMode=()=>matchMedia('(pointer:coarse)').matches||matchMedia('(max-width:900px)').matches||new URLSearchParams(location.search).has('mobilePreview');
 function cafeMobileWalkTo(goal){
  if(!testMode||!ready||cafeAnyModalOpen())return;
  const cell=34,minX=75,maxX=1800,minY=165,maxY=1320;

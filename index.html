@@ -962,7 +962,145 @@ html.cafe-mobile-mouse-preview #cafeMobileControls .cafe-mobile-actions > button
 @media(prefers-reduced-motion:reduce) {
  #cafeInitialLoad .cafe-loader-sprite {animation:none !important;}
 }
-</style></head><body><div id="app"><main id="stage"><div id="cafeInitialLoad" role="status" aria-live="polite" aria-label="Loading Amber's Portfolio Café">
+</style>
+<style id="cafe-v94-standing-walking-loader">
+/* Alternate idle and the two approved walking poses, matching in-game cadence.
+   Explicit discrete positions avoid CSS sprite interpolation/ghosting. */
+#cafeInitialLoad .cafe-loader-sprite {
+  background-image:url('assets/loader/amber_walk_cycle_v94.png')!important;
+  background-size:400% 100%!important;
+  background-position:0% center;
+  animation:cafeV94WalkCycle .72s step-end infinite!important;
+}
+@keyframes cafeV94WalkCycle {
+  0%,24.999% {background-position:0% center}
+  25%,49.999% {background-position:33.333333% center}
+  50%,74.999% {background-position:66.666667% center}
+  75%,100% {background-position:100% center}
+}
+@media(prefers-reduced-motion:reduce) {
+ #cafeInitialLoad .cafe-loader-sprite {animation:none!important;background-position:0% center!important}
+}
+</style>
+<style id="cafe-v93-mobile-control-and-notice-fixes">
+/* V93: Unify mobile UI over the entire 900px breakpoint used by JS.
+   This overrides legacy purple/green button treatments at 751–900px. */
+@media (max-width:900px), (pointer:coarse) {
+  #cafeMobileControls .cafe-mobile-actions > button {
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(231,237,245,.84))!important;
+    border:1px solid rgba(255,255,255,.9)!important;
+    border-radius:17px!important;
+    color:#273043!important;
+    box-shadow:0 5px 18px rgba(22,31,49,.22),inset 0 1px 3px rgba(255,255,255,.65)!important;
+    font-family:Manrope,'DM Sans',sans-serif!important;
+    font-size:12px!important;
+    font-weight:750!important;
+    transform:scale(.85)!important;
+    transform-origin:center!important;
+  }
+  #cafeMobileStick {
+    background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(247,248,252,.64) 48%,rgba(229,233,242,.7))!important;
+    border:1.5px solid rgba(255,255,255,.68)!important;
+    touch-action:none!important;
+    transform:scale(.85)!important;
+    transform-origin:center!important;
+  }
+  #cafeMobileStickKnob {
+    background:linear-gradient(150deg,#fff,#e7ebf3)!important;
+    touch-action:none!important;
+  }
+  #cafeMobileControls {z-index:80!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeIntroText,
+  #arcadeModal.cafe-desktop-only-notice #arcadeInstructions {display:none!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeIntro {gap:0!important}
+}
+html.cafe-mobile-mouse-preview #arcadeModal.cafe-desktop-only-notice #arcadeIntroText,
+html.cafe-mobile-mouse-preview #arcadeModal.cafe-desktop-only-notice #arcadeInstructions {display:none!important}
+</style>
+<style id="cafe-v96-mobile-interaction-repair">
+/* Single white controller on every touch viewport, including landscape tablets. */
+@media (pointer:coarse), (max-width:900px) {
+  #cafeMobileControls {display:flex!important;z-index:80!important}
+  #cafeMobileControls .cafe-mobile-actions > #cafeMobileMenu,
+  #cafeMobileControls .cafe-mobile-actions > #cafeMobileInteract {
+    appearance:none!important;-webkit-appearance:none!important;
+    background:linear-gradient(145deg,#ffffffed,#e7edf5dc)!important;
+    border:1px solid #ffffffea!important;color:#273043!important;
+    box-shadow:0 5px 18px #161f3138,inset 0 1px 3px #ffffffa6!important;
+    transform:scale(.85)!important;
+  }
+  #cafeMobileStick {touch-action:none!important;pointer-events:auto!important}
+  #cafeMobileStickKnob {pointer-events:none!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeIntroText,
+  #arcadeModal.cafe-desktop-only-notice #arcadeInstructions {display:none!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeIntro .arcadeInstructions {display:none!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeStart {display:none!important}
+  #arcadeModal.cafe-desktop-only-notice #arcadeIntro {gap:0!important}
+}
+html.cafe-mobile-mouse-preview #arcadeModal.cafe-desktop-only-notice .arcadeInstructions {display:none!important}
+</style>
+<style id="cafe-v97-visible-loading-walk">
+/* V97: use original full-size artwork for each pose. Discrete source swaps
+   prevent sprite-strip cropping and guarantee visible arm/leg changes. */
+#cafeInitialLoad #cafeLoaderSprite {
+  background-image:url('assets/loader/amber_right_0.png') !important;
+  background-repeat:no-repeat !important;
+  background-size:100% 100% !important;
+  background-position:center !important;
+  animation:cafeV97ArmSwing 0.68s step-end infinite !important;
+  image-rendering:pixelated;
+}
+@keyframes cafeV97ArmSwing {
+  0%, 24.999% { background-image:url('assets/loader/amber_right_0.png'); }
+  25%, 49.999% { background-image:url('assets/loader/amber_right_1.png'); }
+  50%, 74.999% { background-image:url('assets/loader/amber_right_0.png'); }
+  75%, 100% { background-image:url('assets/loader/amber_right_2.png'); }
+}
+@media(prefers-reduced-motion:reduce) {
+  #cafeInitialLoad #cafeLoaderSprite {
+    animation:none !important;
+    background-image:url('assets/loader/amber_right_0.png') !important;
+  }
+}
+</style>
+<style id="cafe-v98-equal-actions-mouse-ready">
+/* Both mobile actions share one explicit box size; override historical min-width,
+   transforms and per-button style exceptions in all mobile orientations. */
+@media (pointer:coarse), (max-width:900px) {
+  #cafeMobileControls .cafe-mobile-actions {display:flex!important; flex-direction:column!important; align-items:stretch!important; gap:10px!important;}
+  #cafeMobileControls .cafe-mobile-actions > #cafeMobileMenu,
+  #cafeMobileControls .cafe-mobile-actions > #cafeMobileInteract {
+    box-sizing:border-box!important;
+    display:flex!important; align-items:center!important; justify-content:center!important;
+    width:84px!important; height:45px!important;
+    min-width:84px!important; max-width:84px!important;
+    min-height:45px!important; max-height:45px!important;
+    padding:0 6px!important;
+    margin:0!important;
+    transform:scale(.85)!important;
+    transform-origin:center!important;
+    cursor:pointer!important;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation!important;
+    user-select:none;
+  }
+  #cafeMobileStick {cursor:crosshair!important; touch-action:none!important; user-select:none; -webkit-user-select:none;}
+}
+/* Desktop mobile-preview uses the identical sizes, presentation and pointer targets. */
+html.cafe-mobile-mouse-preview #cafeMobileControls .cafe-mobile-actions {flex-direction:column!important;align-items:stretch!important;gap:10px!important;}
+html.cafe-mobile-mouse-preview #cafeMobileControls .cafe-mobile-actions > #cafeMobileMenu,
+html.cafe-mobile-mouse-preview #cafeMobileControls .cafe-mobile-actions > #cafeMobileInteract {
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  width:84px!important;height:45px!important;min-width:84px!important;max-width:84px!important;
+  min-height:45px!important;max-height:45px!important;padding:0 6px!important;margin:0!important;
+  transform:scale(.85)!important;cursor:pointer!important;touch-action:manipulation!important;
+  background:linear-gradient(145deg,#ffffffed,#e7edf5dc)!important;
+  color:#273043!important;border:1px solid #ffffffea!important;border-radius:17px!important;
+}
+</style>
+</head><body><div id="app"><main id="stage"><div id="cafeInitialLoad" role="status" aria-live="polite" aria-label="Loading Amber's Portfolio Café">
  <div class="cafe-loader-surface">
   <div class="cafe-loader-middle">
    <div class="cafe-loader-sprite" id="cafeLoaderSprite" aria-hidden="true"></div>
@@ -1235,8 +1373,9 @@ function open(type){if(!modal.hidden||$('portfolioSandbox')?.classList.contains(
    previousFocus=document.activeElement;kind=type;modal.dataset.kind=type;modal.hidden=false;
    $('arcadeTitle').textContent='Arcade';
    $('arcadeIntroTitle').textContent='Games are only playable on desktop';
-   $('arcadeIntroText').textContent='Please visit the café on a desktop computer to play Snake or Tetris.';
+   $('arcadeIntroText').textContent='';
    $('arcadeInstructions').replaceChildren();
+   modal.classList.add('cafe-desktop-only-notice');
    $('arcadeStart').hidden=true;
    $('arcadeTouchControls').hidden=true;
    stopLoop();heldKeys.clear();state=null;setPhase('intro');
@@ -1244,6 +1383,7 @@ function open(type){if(!modal.hidden||$('portfolioSandbox')?.classList.contains(
    dialog.focus({preventScroll:true});
    return;
  }
+ modal.classList.remove('cafe-desktop-only-notice');
  $('arcadeStart').hidden=false;
  previousFocus=document.activeElement;kind=type;modal.dataset.kind=type;modal.hidden=false;$('arcadeTitle').textContent=type==='tetris'?'Tetris · 40 lines':'Snake';
  $('arcadeIntroTitle').textContent=type==='tetris'?'Tetris sprint':'Snake run';
@@ -1427,22 +1567,41 @@ window.addEventListener('blur',()=>{if(phase==='playing'&&state)state.paused=tru
  const bridge=()=>window.cafeMobileBridge;
  const stick=document.getElementById('cafeMobileStick'),knob=document.getElementById('cafeMobileStickKnob');
  let stickId=null,clickPulse=null,pressAt=0,pressX=0,pressY=0,dragged=false;
- function setStick(e){const r=stick.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-  const vx=e.clientX-cx,vy=e.clientY-cy,len=Math.hypot(vx,vy),max=r.width*.34;
-  const x=len>max?vx/len:vx/max,y=len>max?vy/len:vy/max;
-  knob.style.transform=`translate(${x*max}px,${y*max}px)`;bridge()?.setStick(x,y);
+ function setStick(e){
+   const r=stick.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+   const vx=e.clientX-cx,vy=e.clientY-cy,len=Math.hypot(vx,vy),max=r.width*.34;
+   const x=len>max?vx/len:vx/max,y=len>max?vy/len:vy/max;
+   knob.style.transform=`translate(${x*max}px,${y*max}px)`;
+   bridge()?.setStick(x,y);
  }
- function stop(){stickId=null;knob.style.transform='translate(0,0)';bridge()?.setStick(0,0)}
- stick.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;
-  e.preventDefault();clearTimeout(clickPulse);stickId=e.pointerId;pressAt=performance.now();pressX=e.clientX;pressY=e.clientY;dragged=false;
-  try{stick.setPointerCapture(e.pointerId)}catch(_e){}setStick(e)});
- stick.addEventListener('pointermove',e=>{if(e.pointerId===stickId){e.preventDefault();if(Math.hypot(e.clientX-pressX,e.clientY-pressY)>9)dragged=true;setStick(e)}});
- stick.addEventListener('pointerup',e=>{if(e.pointerId!==stickId)return;
-  // Mouse click = a short directional step; mouse drag/touch hold = continuous movement.
-  const shortMouseClick=e.pointerType==='mouse'&&!dragged&&performance.now()-pressAt<260;
-  if(shortMouseClick){setStick(e);stickId=null;clickPulse=setTimeout(stop,185)}else stop();
+ function stop(){clearTimeout(clickPulse);clickPulse=null;stickId=null;knob.style.transform='translate(0,0)';bridge()?.setStick(0,0)}
+ stick.addEventListener('pointerdown',e=>{
+   if((e.pointerType==='mouse'&&e.button!==0)||stickId!==null)return;
+   e.preventDefault();e.stopPropagation();
+   clearTimeout(clickPulse);clickPulse=null;
+   bridge()?.start();stickId=e.pointerId;pressAt=performance.now();pressX=e.clientX;pressY=e.clientY;dragged=false;
+   try{stick.setPointerCapture(e.pointerId)}catch(_e){}
+   setStick(e); // A mouse click, mouse drag, or finger press all steer the visitor.
  });
- for(const type of ['pointercancel','lostpointercapture'])stick.addEventListener(type,e=>{if(e.pointerId===stickId)stop()});
+ stick.addEventListener('pointermove',e=>{
+   if(e.pointerId!==stickId)return;
+   e.preventDefault();
+   if(Math.hypot(e.clientX-pressX,e.clientY-pressY)>9)dragged=true;
+   setStick(e);
+ });
+ stick.addEventListener('pointerup',e=>{
+   if(e.pointerId!==stickId)return;
+   e.preventDefault();setStick(e);
+   // Short mouse clicks AND taps produce one visible movement step.
+   // Held mouse drags and held touch presses steer continuously until released.
+   const tap=!dragged&&performance.now()-pressAt<260;
+   stickId=null;
+   if(tap)clickPulse=setTimeout(stop,185);
+   else stop();
+ });
+ stick.addEventListener('pointercancel',e=>{if(e.pointerId===stickId)stop()});
+ // pointerup releases capture automatically; do not cancel the click-step pulse.
+ stick.addEventListener('lostpointercapture',e=>{if(e.pointerId===stickId)stop()});
  document.getElementById('cafeMobileInteract').addEventListener('click',()=>bridge()?.interact());
  document.getElementById('cafeMobileMenu').addEventListener('click',()=>{
   if(typeof window.cafeMobileOpenMenu==='function')window.cafeMobileOpenMenu();
